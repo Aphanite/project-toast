@@ -18,26 +18,14 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ type = "notice", message, closeToast }) {
-  const Icon = ((type) => {
-    switch (type) {
-      case "notice":
-        return Info;
-      case "warning":
-        return AlertTriangle;
-      case "success":
-        return CheckCircle;
-      case "error":
-        return AlertOctagon;
-    }
-  })(type);
-
+function Toast({ variant = "notice", closeToast, children }) {
+  const Icon = ICONS_BY_VARIANT[variant];
   return (
-    <div className={`${styles.toast} ${styles[type]}`}>
+    <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
         <Icon size={24} />
       </div>
-      <p className={styles.content}>{message}</p>
+      <p className={styles.content}>{children}</p>
       <button className={styles.closeButton}>
         <X size={24} onClick={closeToast} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
