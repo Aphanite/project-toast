@@ -9,7 +9,7 @@ import ToastShelf from "../ToastShelf";
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
-  const { toasts, addToast } = React.useContext(ToastContext);
+  const { addToast } = React.useContext(ToastContext);
 
   const defaultMessage = "";
   const defaultVariant = "notice";
