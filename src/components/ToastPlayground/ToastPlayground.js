@@ -14,21 +14,20 @@ function ToastPlayground() {
 
   const [message, setMessage] = React.useState(defaultMessage);
   const [variantOption, setVariantOption] = React.useState(defaultVariant);
-  const [toasts, setToasts] = React.useState({});
+  const [toasts, setToasts] = React.useState([]);
 
   function submitForm(event) {
     event.preventDefault();
 
     // take stuff from form and make a Toast
-    const toastKey = crypto.randomUUID();
+    const toastId = crypto.randomUUID();
     const newToast = (
       <Toast
+        id={toastId}
         variant={variantOption}
         closeToast={() => {
           setToasts((currentToasts) => {
-            const newToasts = { ...currentToasts };
-            delete newToasts[toastKey];
-            return newToasts;
+            return currentToasts.filter((toast) => toast.props.id != toastId);
           });
         }}
       >
@@ -38,7 +37,7 @@ function ToastPlayground() {
 
     // add Toast to shelf
     setToasts((currentToasts) => {
-      return { ...currentToasts, [toastKey]: newToast };
+      return [...currentToasts, newToast];
     });
 
     // clear form
