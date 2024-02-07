@@ -1,44 +1,26 @@
 import React from "react";
 
 import Button from "../Button";
-import Toast from "../Toast";
+import { ToastContext } from "../ToastProvider/ToastProvider";
 
 import styles from "./ToastPlayground.module.css";
-import ToastShelf from "../ToastShelf/ToastShelf";
+import ToastShelf from "../ToastShelf";
 
 const VARIANT_OPTIONS = ["notice", "warning", "success", "error"];
 
 function ToastPlayground() {
+  const { toasts, addToast } = React.useContext(ToastContext);
+
   const defaultMessage = "";
   const defaultVariant = "notice";
 
   const [message, setMessage] = React.useState(defaultMessage);
   const [variantOption, setVariantOption] = React.useState(defaultVariant);
-  const [toasts, setToasts] = React.useState([]);
 
   function submitForm(event) {
     event.preventDefault();
 
-    // take stuff from form and make a Toast
-    const toastId = crypto.randomUUID();
-    const newToast = (
-      <Toast
-        id={toastId}
-        variant={variantOption}
-        closeToast={() => {
-          setToasts((currentToasts) => {
-            return currentToasts.filter((toast) => toast.props.id != toastId);
-          });
-        }}
-      >
-        {message}
-      </Toast>
-    );
-
-    // add Toast to shelf
-    setToasts((currentToasts) => {
-      return [...currentToasts, newToast];
-    });
+    addToast(variantOption, message);
 
     // clear form
     setMessage(defaultMessage);
