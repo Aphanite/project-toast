@@ -34,7 +34,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <ToastShelf toasts={toasts} />
+      <ToastShelf />
 
       <form className={styles.controlsWrapper} onSubmit={submitForm}>
         <div className={styles.row}>
